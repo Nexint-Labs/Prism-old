@@ -66,6 +66,42 @@ const postAPI = async function (endpoint, data) {
 
 }
 
+/**
+ * Delete data onm my API
+ * Typically used with tokens...?
+ * @param {String} endpoint 
+ * @param {*} data 
+ * @returns 
+ */
+const delAPI = async function (endpoint, data) {
+    const activeServer = apiServer;
+    let authData = data;
+    authData.token = apiToken
+    if ((activeServer != null && activeServer != "")) {
+        try {
+            const update = await fetch(activeServer + '/api/v1' + endpoint, {
+                method: 'DELETE',
+                body: JSON.stringify(authData),
+                headers: {
+                    'Authorization': header,
+                    'Content-Type': `application/json`
+                }
+            });
+            const info = await update.json();
+            return info
+        } catch (error) {
+            console.log(error)
+            console.log("[" + Date.now() + `] [ERROR] Could not hit the Nexint API.`);
+            return {
+                error: true,
+                desc: "Could not hit the Nexint API"
+            }
+        }
+    }
+    throw new NexAPIError("NexAPI Server is not configured.")
+
+}
+
 module.exports = {
     getAPI,
     postAPI,

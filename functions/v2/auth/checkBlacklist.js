@@ -9,8 +9,6 @@ const { replyContainer } = require('#functions/v2/discord/replyContainer');
 const isBlacklisted = async function (id, serverParam) {
     const activeServer = serverParam || server;
 
-
-
     if ((blacklist === null || Math.floor(Date.now() / 1000) > Number(date) + delay) && (activeServer != null && activeServer != "")) {
 
         // Connect to my advertisement API

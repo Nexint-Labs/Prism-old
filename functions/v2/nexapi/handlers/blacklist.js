@@ -12,13 +12,13 @@ module.exports = {
         });
 
         // Blacklist / whitelist only works if you are connected to Nexint API.
-        if (server != "https://api.nexint.org") {
+        /*if (server != "https://api.nexint.org") {
             let msg = await embed("Warning", `This instance of ${botName} is not connected to the Nexint API.`, null, null);
             await interaction.editReply({
                 embeds: [msg]
             });
             return;
-        }
+        }*/
 
         if (!(interaction.user.id == devID)) {
             let msg = await embed("Blacklist API", "You are not authorized to use this tool.", null, null);
@@ -48,13 +48,15 @@ module.exports = {
             }
         });
         const event = await update.json();
+        console.log(update.status)
+        console.log(event)
 
         // reply
         let msg = "";
         if (update.status == "409") {
             msg += "User is already blacklisted."
         } else {
-            msg += `Blacklisted <@${event.id}> (${event.name}) from Nexint services.`
+            msg += `Blacklisted <@${event.content.userid}> (${event.content.user}) from Nexint services.`
         }
         msg = await embed("Blacklist API", msg, null, null);
         await interaction.editReply({

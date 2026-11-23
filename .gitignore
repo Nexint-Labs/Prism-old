@@ -135,11 +135,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
-# ==========================================
-# Prism - Database and Runtime Files
-# ==========================================
-
 # Sequelize / SQLite databases
 *.sqlite
 *.sqlite3
